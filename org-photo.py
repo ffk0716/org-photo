@@ -13,7 +13,7 @@ root = args.path
 files = [name for name in os.listdir(root) if not os.path.isdir(os.path.join(root, name)) ]
 
 sum_day_shift = 0
-for file in files:
+for file in sorted(files):
     try:
         raw_date = datetime.datetime.strptime(file[:19], '%Y-%m-%d %H.%M.%S')
     except ValueError:
