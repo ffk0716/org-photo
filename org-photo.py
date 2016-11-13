@@ -1,11 +1,14 @@
 import os
-import sys
-import re
 import datetime
 import shutil
+import argparse
 
-dir1 = sys.argv[1]
+parser = argparse.ArgumentParser()
+parser.add_argument('-p', '--path', required=True, help='path for photos')
+parser.add_argument('-d', '--dry', action='store_true', help='dry run mode')
+args = parser.parse_args()
 
+dir1 = args.path
 files = [name for name in os.listdir(dir1) if not os.path.isdir(os.path.join(dir1, name)) ]
 
 for file in files:
@@ -20,4 +23,5 @@ for file in files:
     name1 = os.path.join(dir1, file)
     name2 = os.path.join(dir2, file)
     print name1, '->', name2
-    shutil.move(name1, name2)
+    if not args.dry:
+        shutil.move(name1, name2)
